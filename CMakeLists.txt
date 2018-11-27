@@ -21,17 +21,18 @@ execute_process( COMMAND ${CMAKE_COMMAND} --build .
 # and gmock_main
 add_subdirectory( ${CMAKE_BINARY_DIR}/googletest-src
                  ${CMAKE_BINARY_DIR}/googletest-build )
-                 
-set(UNIT_TESTS, basic-test.cpp)
 
+                 
 # these steps compile and link the unit-tests executable
 enable_testing()  # gives us a make test target
 add_test( all unit-tests ) # gives us a make test all target
-add_executable( unit-tests test-main.cpp ${SOURCE_FILES} ${UNIT_TESTS} )
+add_executable( unit-tests test-main.cpp basic-test.cpp )
+
 TARGET_INCLUDE_DIRECTORIES( unit-tests PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}
 )
+
 target_link_libraries( unit-tests LINK_PUBLIC
     gtest
     gmock
