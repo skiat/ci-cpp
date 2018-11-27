@@ -38,3 +38,13 @@ target_link_libraries( unit-tests LINK_PUBLIC
 )
 
 
+IF (UNIX)
+    SET(CHECK_COVERAGE ON)
+ENDIF (UNIX)
+if (CHECK_COVERAGE)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -fprofile-arcs -ftest-coverage")
+    include(CodeCoverage.cmake)
+    setup_target_for_coverage(${PROJECT_NAME}_coverage unit-tests coverage)
+ENDIF (CHECK_COVERAGE)
+
+
